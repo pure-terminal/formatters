@@ -36,9 +36,10 @@ console.log(output);
 Creating your own formatter using Peggy parser.
 
 ```typescript
+import peggy from 'peggy';
 import { Formatter } from '@pure-terminal/formatters';
 
-const grammar = `
+const grammar = String.raw`
 start = arr:(content / [\n])+ {
     return arr.join('');
 }
@@ -62,7 +63,8 @@ inline_link = '[' text:[^\]]* ']' '(' url:[^)]+ ')' {
     };
 }
 `;
-const parser = peggy.generate(grammar.innerHTML);
+
+const parser = peggy.generate(grammar);
 const format = (input: string) => {
     return [parser.parse(input), 0];
 };
